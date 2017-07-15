@@ -1,7 +1,17 @@
+
+function Close-PWS{
+    stop-process -Id $PID
+}
+
 function chaneDirectoryTitle($dir) {
     Set-Location $dir
     $Name = $((get-item $pwd).Name)
     titleChange $Name
+}
+
+function  SynapticsRestart {
+    Stop-Process -processname SynTPEnh
+    Start-Process "C:\Program Files\Synaptics\SynTP\SynTPEnh.exe"
 }
 
 function sps {
@@ -20,6 +30,8 @@ function titleChange($Name) {
     $host.ui.RawUI.WindowTitle = $name
 }
 
+# Here is a cool text editor on powershell made by MrMiguu on GitHub
+# https://github.com/mrmiguu/Here
 Function Here($emptyBodyOrFile, $emptyFileOrBody, $newFile) {
     $PSDefaultParameterValues["*:Encoding"] = "utf8"
 
@@ -125,11 +137,16 @@ Function GitAddCommitPush {
     #>
 }
 
+# set theme
 $PSDefaultParameterValues["*:Encoding"] = 'utf8'
 Set-PSReadlineOption -TokenKind String -ForegroundColor Cyan
 Set-PSReadlineOption -TokenKind Command -ForegroundColor Magenta
 Set-PSReadlineOption -TokenKind Parameter -ForegroundColor Yellow
+
+# set alias
 set-alias tc titleChange
 set-alias o Out-FileUTF8NoBOM
 Set-Alias gap GitAddCommitPush
 Set-Alias cdt chaneDirectoryTitle
+Set-Alias cps Close-PWS
+Set-Alias ss SynapticsRestart
