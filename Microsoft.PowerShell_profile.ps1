@@ -1,5 +1,5 @@
 
-function Close-PWS{
+function Close-PWS {
     stop-process -Id $PID
 }
 
@@ -76,6 +76,13 @@ Function GitAddCommitPush {
         [string]$comment, 
         [Parameter( ParameterSetName = "GIT")]
         [switch]$g,
+
+        [Parameter(Position = 0, ParameterSetName = "GITNew")]
+        [string]$comment4,
+        [Parameter( ParameterSetName = "GITNew")]
+        [switch]$gn,
+        [Parameter( ParameterSetName = "GITNew")]
+        [string]$url,
     
        
         [Parameter(Position = 0, ParameterSetName = "Heroku")]
@@ -87,6 +94,8 @@ Function GitAddCommitPush {
         [string]$comment3,
         [Parameter(ParameterSetName = "HerokuLogs")]
         [switch]$hl
+
+
     )
   
 
@@ -95,6 +104,13 @@ Function GitAddCommitPush {
             git add -A;
             git commit -m "$comment";
             git push
+        }
+        "GITNew" {
+            git init;
+            git add -A;
+            git commit -m "$comment4";
+            git remote add origin $url;
+            git push -u origin master;
         }
         "Heroku" { 
             git add -A;
