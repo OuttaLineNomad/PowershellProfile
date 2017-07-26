@@ -3,12 +3,10 @@ function Close-PWS {
     stop-process -Id $PID
 }
 
-function chaneDirectoryTitle($dir) {
-    Set-Location $dir
-    $Name = $((get-item $pwd).Name)
-    titleChange $Name
+function Prompt {
+    $host.UI.RawUI.WindowTitle = (Get-Item -Path ".\" -Verbose).Name
+    "PS $(Get-Location)> "
 }
-
 function  SynapticsRestart {
     Stop-Process -processname SynTPEnh
     Start-Process "C:\Program Files\Synaptics\SynTP\SynTPEnh.exe"
@@ -17,6 +15,7 @@ function  SynapticsRestart {
 function sps {
     Start-Process powershell
 }
+
 
 function Out-FileUTF8NoBOM($file) {
     Begin {}
@@ -153,6 +152,20 @@ Function GitAddCommitPush {
     #>
 }
 
+function Save-HerokuKeys($file) {
+    $envVars = Import-Csv "$file"
+    foreach ($item in $envVars) {
+        $command = $($item.Key + "=" + $item.Value)
+        heroku config:set $command
+    }
+    heroku config
+}
+
+
+
+
+
+
 # set theme
 $PSDefaultParameterValues["*:Encoding"] = 'utf8'
 Set-PSReadlineOption -TokenKind String -ForegroundColor Cyan
@@ -163,6 +176,6 @@ Set-PSReadlineOption -TokenKind Parameter -ForegroundColor Yellow
 set-alias tc titleChange
 set-alias o Out-FileUTF8NoBOM
 Set-Alias gap GitAddCommitPush
-Set-Alias cdt chaneDirectoryTitle
 Set-Alias cps Close-PWS
 Set-Alias ss SynapticsRestart
+Set-Alias shk Save-HerokuKeys
