@@ -1,3 +1,9 @@
+function GoInsallHerokuLocal (){
+    Clear-Host
+    go install
+    heroku local
+    
+}
 
 function Close-PWS {
     stop-process -Id $PID
@@ -179,3 +185,4 @@ Set-Alias gap GitAddCommitPush
 Set-Alias cps Close-PWS
 Set-Alias ss SynapticsRestart
 Set-Alias shk Save-HerokuKeys
+Set-Alias hls GoInsallHerokuLocal
