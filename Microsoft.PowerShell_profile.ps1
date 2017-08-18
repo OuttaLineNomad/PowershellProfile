@@ -5,6 +5,17 @@ function GoInsallHerokuLocal (){
     
 }
 
+function Git-All{
+    Get-ChildItem -Recurse -Depth 2 -Force | 
+    Where-Object { $_.Mode -match "h" -and $_.FullName -like "*\.git" } |
+    ForEach-Object {
+       cd $_.FullName
+       cd ../
+       git pull
+       cd ../
+    }
+}
+
 function Close-PWS {
     stop-process -Id $PID
 }
@@ -186,3 +197,4 @@ Set-Alias cps Close-PWS
 Set-Alias ss SynapticsRestart
 Set-Alias shk Save-HerokuKeys
 Set-Alias hls GoInsallHerokuLocal
+Set-Alias gita Git-All
