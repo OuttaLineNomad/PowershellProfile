@@ -86,7 +86,7 @@ Function Here($emptyBodyOrFile, $emptyFileOrBody, $newFile) {
     [System.Windows.Forms.SendKeys]::SendWait("^{v}")
 }
 
-Function GitAddCommitPush {
+Function GitAddCommitPush($comment) {
     git add -A;
     git commit -m "$comment";
     git push
