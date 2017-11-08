@@ -1,18 +1,18 @@
-function GoInsallHerokuLocal (){
+function GoInsallHerokuLocal () {
     Clear-Host
     go install
     heroku local
     
 }
 
-function Git-All{
+function Git-All {
     Get-ChildItem -Recurse -Depth 2 -Force | 
-    Where-Object { $_.Mode -match "h" -and $_.FullName -like "*\.git" } |
-    ForEach-Object {
-       cd $_.FullName
-       cd ../
-       git pull
-       cd ../
+        Where-Object { $_.Mode -match "h" -and $_.FullName -like "*\.git" } |
+        ForEach-Object {
+        cd $_.FullName
+        cd ../
+        git pull
+        cd ../
     }
 }
 
@@ -87,86 +87,9 @@ Function Here($emptyBodyOrFile, $emptyFileOrBody, $newFile) {
 }
 
 Function GitAddCommitPush {
-    param (
-        [Parameter(Position = 0, ParameterSetName = "GIT")]
-        [string]$comment, 
-        [Parameter( ParameterSetName = "GIT")]
-        [switch]$g,
-
-        [Parameter(Position = 0, ParameterSetName = "GITNew")]
-        [string]$comment4,
-        [Parameter( ParameterSetName = "GITNew")]
-        [switch]$gn,
-        [Parameter( ParameterSetName = "GITNew")]
-        [string]$url,
-    
-       
-        [Parameter(Position = 0, ParameterSetName = "Heroku")]
-        [string]$comment2,
-        [Parameter( ParameterSetName = "Heroku")]
-        [switch]$h,
-        
-        [Parameter(Position = 0, ParameterSetName = "HerokuLogs")]
-        [string]$comment3,
-        [Parameter(ParameterSetName = "HerokuLogs")]
-        [switch]$hl
-
-
-    )
-  
-
-    switch ($PsCmdlet.ParameterSetName) {
-        "GIT" {
-            git add -A;
-            git commit -m "$comment";
-            git push
-        }
-        "GITNew" {
-            git init;
-            git add -A;
-            git commit -m "$comment4";
-            git remote add origin $url;
-            git push -u origin master;
-        }
-        "Heroku" { 
-            git add -A;
-            git commit -m "$comment2";
-            git push heroku master;
-        }
-        "HerokuLogs" {
-            git add -A;
-            git commit -m "$comment3";
-            git push heroku master;
-            heroku logs -t
-        }
-        
-    }
-
-
-    <#
-    .SYNOPSIS
-    Helps with committing code to GitHub or Heroku
-    
-    .DESCRIPTION
-    This will execute the git commands to add all changes to your git repository. It also as specific switches for Heroku, to help the commit code directly to Heroku then to look at their logs. 
-    
-    .PARAMETER comment
-    The comment that will show on the git. The reason for committing the code.
-
-    .PARAMETER g
-    For committing code directly to github.com.
-    
-    .PARAMETER h
-    For committing code directly to Heroku.
-    
-    .PARAMETER hl
-    For committing code directly to Heroku then showing the logs from the server.
-    
-    .EXAMPLE
-    GitAddCommitPush "This is a test" -hl 
-    .NOTES
-    The function helps testing and commiting code to Heroku.
-    #>
+    git add -A;
+    git commit -m "$comment";
+    git push
 }
 
 function Save-HerokuKeys($file) {
