@@ -21,8 +21,8 @@ function Close-PWS {
 }
 
 function Prompt {
-    $host.UI.RawUI.WindowTitle = (Get-Item -Path ".\" -Verbose).Name
-    "PS $(Get-Location)> "
+    $host.UI.RawUI.WindowTitle = $pwd
+    "PS: > "
 }
 function  SynapticsRestart {
     Stop-Process -processname SynTPEnh
